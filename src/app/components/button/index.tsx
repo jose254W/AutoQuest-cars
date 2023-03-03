@@ -6,6 +6,7 @@ interface IButtonProps {
   theme?: "filled" | "outlined";
   text: string;
   className?: string;
+  
 }
 
 const BaseButton = styled.button`
@@ -52,6 +53,8 @@ const FilledButton = styled(BaseButton)`
   `};
 `;
 
+
+
 export function Button(props: IButtonProps) {
   const { theme, text, className } = props;
 
@@ -59,4 +62,8 @@ export function Button(props: IButtonProps) {
     return <FilledButton className={className}>{text}</FilledButton>;
   else 
   return <OutlinedButton className={className}>{text}</OutlinedButton>;
+
 }
+
+
+ 

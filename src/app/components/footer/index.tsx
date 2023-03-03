@@ -152,7 +152,7 @@ const SmallText = styled.h6`
 
 export function Footer() {
   return (
-    <FooterContainer>
+    <FooterContainer id="contact">
       <InnerContainer>
         <AboutContainer>
           <Logo  />
@@ -164,13 +164,13 @@ export function Footer() {
           <HeaderTitle>Our Links</HeaderTitle>
           <LinksList>
             <ListItem>
-              <a href="#">Home</a>
+              <a href="#home">Home</a>
             </ListItem>
             <ListItem>
               <a href="#">About Us</a>
             </ListItem>
             <ListItem>
-              <a href="#">Services</a>
+              <a href="#service">Services</a>
             </ListItem>
             <ListItem>
               <a href="#">Models</a>
