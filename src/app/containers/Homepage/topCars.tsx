@@ -96,15 +96,14 @@ export function TopCars() {
   const { topCars } = useSelector(stateSelector);
   const { setTopCars } = actionDispatch(useDispatch());
 
-  console.log("Cars", topCars);
-
+  
   const fetchTopCars = async () => {
     setLoading(true);
     const cars = await carService.getCars().catch((err) => {
       console.log("Error: ", err);
     });
 
-    console.log("Cars: ", cars);
+    
     if (cars) setTopCars(cars);
     setLoading(false);
   };

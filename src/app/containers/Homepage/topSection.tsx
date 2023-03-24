@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
@@ -6,8 +6,10 @@ import { SCREENS } from "../../components/responsive";
 import MercedesCarImg from "../../../assets/Legacy.webp";
 import BlobImg from "../../../assets/blob.svg";
 import { Button } from "../../components/button";
+import Modal from "react-modal";
+import { BookingForm } from "../../components/booking/BookingForms";
 
-
+Modal.setAppElement("#root");
 
 const TopSectionContainer = styled.div`
   min-height: 400px;
@@ -135,8 +137,31 @@ const ButtonsContainer = styled.div`
     mt-4
   `};
 `;
+const modalStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    height: "400px",
+    backgroundColor:"rgb(248 113 113)",
+    zIndex: 9999,
+  },
+};
 
 export function TopSection() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
     return (
       <TopSectionContainer>
         <LeftContainer>
@@ -145,8 +170,11 @@ export function TopSection() {
           Discover your next adventure on wheels with our unbeatable car selection and unparalleled customer service - your one-stop-shop for all things automotive.
           </Description>
           <ButtonsContainer>
-          <Button text="Book Your Ride" />
-          <Button theme="filled" text="Buy your car" />
+          <Button onClick={handleOpenModal} text="Book Your Ride">Book Your Ride</Button>
+      <Modal isOpen={showModal} onRequestClose={handleCloseModal} style={modalStyles}>
+        <BookingForm onFormSubmit={handleCloseModal} />
+      </Modal>
+          <Button theme="filled" text="Buy your car" ></Button>
         </ButtonsContainer>
         </LeftContainer>
         <RightContainer>

@@ -6,7 +6,8 @@ interface IButtonProps {
   theme?: "filled" | "outlined";
   text: string;
   className?: string;
-  
+  onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 const BaseButton = styled.button`
@@ -56,14 +57,22 @@ const FilledButton = styled(BaseButton)`
 
 
 export function Button(props: IButtonProps) {
-  const { theme, text, className } = props;
+  const { theme, text, className, onClick } = props;
 
   if (theme === "filled")
-    return <FilledButton className={className}>{text}</FilledButton>;
+    return (
+      <FilledButton className={className} onClick={onClick}>
+        {text}
+      </FilledButton>
+    );
   else 
-  return <OutlinedButton className={className}>{text}</OutlinedButton>;
-
+    return (
+      <OutlinedButton className={className} onClick={onClick}>
+        {text}
+      </OutlinedButton>
+    );
 }
+
 
 
  

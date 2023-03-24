@@ -12,6 +12,10 @@ import { Marginer } from "../marginer";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { SCREENS } from "../responsive";
+import { BookingForm } from "../booking/BookingForms";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 const CardContainer = styled.div`
   min-height: 4.3em;
@@ -128,6 +132,20 @@ const DateCalendar = styled(Calendar)`
     left: -2em;
   }
 ` as any;
+const modalStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    height: "400px",
+    backgroundColor:"rgb(248 113 113)",
+  },
+};
+
 
 export function BookCard() {
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -143,6 +161,16 @@ export function BookCard() {
   const toggleReturnDateCalendar = () => {
     setReturnCalendarOpen(!isReturnCalendarOpen);
     if (isStartCalendarOpen) setStartCalendarOpen(false);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -181,7 +209,10 @@ export function BookCard() {
         )}
       </ItemContainer>
       <Marginer direction="horizontal" margin="2em" />
-      <Button>Book Your Ride</Button>
+      <Button onClick={handleOpenModal}>Book Your Ride</Button>
+      <Modal isOpen={showModal} onRequestClose={handleCloseModal} style={modalStyles}>
+        <BookingForm  onFormSubmit={handleCloseModal} />
+      </Modal>
     </CardContainer>
   );
 }

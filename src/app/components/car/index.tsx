@@ -1,14 +1,18 @@
+import React, { useState } from "react";
 import {
     faEllipsisH,
     faFillDrip,
     faTachometerAlt,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Button } from "../button";
 import { ICar } from "../../../typings/car";
+import { RentingForm } from "../Rent/rentForm";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 interface ICarProps extends ICar {}
 
@@ -133,6 +137,20 @@ const RentButton = styled(Button)`
   `};
 `;
 
+const modalStyle= {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    height: "400px",
+    backgroundColor:"rgb(248 113 113)",
+  },
+};
+
 export function Car (props: ICarProps) {
     
     const {
@@ -144,6 +162,17 @@ export function Car (props: ICarProps) {
         gearType,
         gas,
       } = props;
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
 
       return (
         <CarContainer>
@@ -182,7 +211,10 @@ export function Car (props: ICarProps) {
               <CarInfo>{gas}</CarInfo>
             </CarDetail>
           </CarDetailsContainer>
-          <RentButton text="Rent Now" />
+          <RentButton onClick={handleOpenModal} text="Rent Now">Rent Now</RentButton>
+          <Modal isOpen={showModal} onRequestClose={handleCloseModal} style={modalStyle}>
+        <RentingForm onFormSubmit={handleCloseModal} />
+      </Modal>
         </CarContainer>
       );
     }
