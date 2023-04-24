@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
-    faEllipsisH,
-    faFillDrip,
-    faTachometerAlt,
-  } from "@fortawesome/free-solid-svg-icons";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  faEllipsisH,
+  faFillDrip,
+  faTachometerAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Button } from "../button";
@@ -37,12 +37,18 @@ const CarContainer = styled.div`
 
 const CarThumbnail = styled.div`
   width: 100%;
-  height: auto;
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
   img {
+    position: absolute;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+
   }
 `;
+
 
 const CarName = styled.h3`
   ${tw`
@@ -67,14 +73,14 @@ const SmallText = styled.p`
   color: inherit;
   ${tw`
     inline-flex
-    text-xs
+    text-sm
     font-thin
   `};
 `;
 
 const DailyPrice = styled.h5`
   ${tw`
-    text-red-500
+    text-red-600
     font-bold
     text-sm
     mr-3
@@ -83,7 +89,7 @@ const DailyPrice = styled.h5`
 
 const MonthlyPrice = styled.h5`
   ${tw`
-    text-gray-500
+    text-gray-600
     font-bold
     text-sm
   `};
@@ -137,7 +143,7 @@ const RentButton = styled(Button)`
   `};
 `;
 
-const modalStyle= {
+const modalStyle = {
   content: {
     top: "50%",
     left: "50%",
@@ -147,21 +153,20 @@ const modalStyle= {
     transform: "translate(-50%, -50%)",
     width: "400px",
     height: "400px",
-    backgroundColor:"rgb(248 113 113)",
+    backgroundColor: "rgb(248 113 113)",
   },
 };
 
-export function Car (props: ICarProps) {
-    
-    const {
-        name,
-        thumbnailSrc,
-        dailyPrice,
-        monthlyPrice,
-        mileage,
-        gearType,
-        gas,
-      } = props;
+export function Car(props: ICarProps) {
+  const {
+    name,
+    thumbnailSrc,
+    dailyPrice,
+    monthlyPrice,
+    mileage,
+    gearType,
+    gas,
+  } = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -173,48 +178,53 @@ export function Car (props: ICarProps) {
     setShowModal(false);
   };
 
-
-      return (
-        <CarContainer>
-          <CarThumbnail>
-            <img src={thumbnailSrc} alt="tumbnail" />
-          </CarThumbnail>
-          <CarName>{name}</CarName>
-          <PricesContainer>
-            <DailyPrice>
-              ${dailyPrice}
-              <SmallText>/Day</SmallText>
-            </DailyPrice>
-            <MonthlyPrice>
-              ${monthlyPrice}
-              <SmallText>/Month</SmallText>
-            </MonthlyPrice>
-          </PricesContainer>
-          <Seperator />
-          <CarDetailsContainer>
-            <CarDetail>
-              <SmallIcon>
-                <FontAwesomeIcon icon={faTachometerAlt} />
-              </SmallIcon>
-              <CarInfo>{mileage}</CarInfo>
-            </CarDetail>
-            <CarDetail>
-              <SmallIcon>
-                <FontAwesomeIcon icon={faEllipsisH} />
-              </SmallIcon>
-              <CarInfo>{gearType}</CarInfo>
-            </CarDetail>
-            <CarDetail>
-              <SmallIcon>
-                <FontAwesomeIcon icon={faFillDrip} />
-              </SmallIcon>
-              <CarInfo>{gas}</CarInfo>
-            </CarDetail>
-          </CarDetailsContainer>
-          <RentButton onClick={handleOpenModal} text="Rent Now">Rent Now</RentButton>
-          <Modal isOpen={showModal} onRequestClose={handleCloseModal} style={modalStyle}>
-        <RentingForm onFormSubmit={handleCloseModal} />
+  return (
+    <CarContainer>
+      <CarThumbnail>
+        <img src={thumbnailSrc} alt="tumbnail" />
+      </CarThumbnail>
+      <CarName>{name}</CarName>
+      <PricesContainer>
+        <DailyPrice>
+        Ksh{dailyPrice}
+          <SmallText>/Day</SmallText>
+        </DailyPrice>
+        <MonthlyPrice>
+        Ksh{monthlyPrice}
+          <SmallText>/Month</SmallText>
+        </MonthlyPrice>
+      </PricesContainer>
+      <Seperator />
+      <CarDetailsContainer>
+        <CarDetail>
+          <SmallIcon>
+            <FontAwesomeIcon icon={faTachometerAlt} />
+          </SmallIcon>
+          <CarInfo>{mileage}</CarInfo>
+        </CarDetail>
+        <CarDetail>
+          <SmallIcon>
+            <FontAwesomeIcon icon={faEllipsisH} />
+          </SmallIcon>
+          <CarInfo>{gearType}</CarInfo>
+        </CarDetail>
+        <CarDetail>
+          <SmallIcon>
+            <FontAwesomeIcon icon={faFillDrip} />
+          </SmallIcon>
+          <CarInfo>{gas}</CarInfo>
+        </CarDetail>
+      </CarDetailsContainer>
+      <RentButton onClick={handleOpenModal} text="Rent Now">
+        Rent Now
+      </RentButton>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={handleCloseModal}
+        style={modalStyle}
+      >
+        <RentingForm onFormSubmit={handleCloseModal} carType={name}/>
       </Modal>
-        </CarContainer>
-      );
-    }
+    </CarContainer>
+  );
+}

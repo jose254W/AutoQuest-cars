@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import { slide as Menu } from "react-burger-menu";
 import { useMediaQuery } from "react-responsive";
 import { SCREENS } from "../responsive";
 import menuStyles from "./menuStyles";
+import { Car } from "../car";
+import { TopCars } from "../../containers/Homepage/topCars";
+
 
 const ListContainer = styled.ul`
   ${tw`
@@ -39,8 +42,71 @@ const NavItem = styled.li<{ menu?: any }>`
     `};
 `;
 
-export function NavItems() {
+const SearchContainer = styled.div`
+  ${tw`
+    relative
+    w-56
+    md:w-96
+    ml-4
+  `};
+`;
+
+const SearchInput = styled.input`
+  ${tw`
+    w-full
+    h-10
+    pl-4
+    pr-8
+    rounded-lg
+    border-2
+    border-gray-300
+    focus:border-blue-500
+    outline-none
+  `};
+`;
+
+const SearchIconContainer = styled.div`
+  ${tw`
+    absolute
+    top-0
+    right-0
+    h-full
+    w-12
+  `};
+`;
+
+const SearchIcon = styled.i`
+  ${tw`
+    w-full
+    h-full
+    text-gray-400
+    hover:text-gray-500
+    cursor-pointer
+    text-2xl
+    flex
+    items-center
+    justify-center
+  `};
+`;
+
+export function NavItems(props: { topcars: string[] }) {
   const isMobile = useMediaQuery({ maxWidth: SCREENS.sm });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCar, setFilteredCar] = useState<string[]>(props.topcars);
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value.toLowerCase();
+    const filtered = query !== "" ? props.topcars.filter((name: string) => name.toLowerCase().includes(query)) : props.topcars;
+    setFilteredCar(filtered);
+    setSearchQuery(query);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(`Submitting search query: ${searchQuery}`);
+  };
+  console.log(searchQuery)
+  console.log(props.topcars)
 
   if (isMobile)
     return (
@@ -76,6 +142,16 @@ export function NavItems() {
       <NavItem>
         <a href="#contact">Contact Us</a>
       </NavItem>
-    </ListContainer>
-  );
-}
+      <form onSubmit={handleSubmit}>
+              <SearchInput
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+              />
+              <SearchIconContainer>
+                <SearchIcon className="ri-search-line" />
+              </SearchIconContainer>
+            </form>
+      </ListContainer>
+  )}

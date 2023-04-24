@@ -120,9 +120,10 @@ export function TopCars() {
       topCars.map((car) => <Car {...car} thumbnailSrc={car.thumbnailUrl} />)) ||
     [];
 
-  const numberOfDots = isMobile ? cars.length : Math.ceil(cars.length / 2);
-  
+    const carsPerDot = 1;
+    const numberOfDots = Math.ceil(cars.length / carsPerDot);
 
+   
   return (
     <TopCarsContainer id="cars">
       <Title>Explore Our Top Deals</Title>
@@ -146,6 +147,7 @@ export function TopCars() {
                   numberOfSlides: 4,
                 },
               },
+             
             ]}
             breakpoints={{
               640: {
@@ -176,3 +178,4 @@ export function TopCars() {
     </TopCarsContainer>
   );
 }
+

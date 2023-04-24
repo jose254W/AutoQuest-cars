@@ -3,6 +3,7 @@ import {
   faCalendarAlt,
   faCaretDown,
   faCaretUp,
+  faMapMarkedAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
@@ -175,6 +176,13 @@ export function BookCard() {
 
   return (
     <CardContainer id="service">
+      <ItemContainer>
+        <Icon>
+        <FontAwesomeIcon icon={faMapMarkedAlt} />
+        </Icon>
+        <Name>Choose Your Location</Name>
+      </ItemContainer>
+      <LineSeperator /> 
       <ItemContainer>
         <Icon>
           <FontAwesomeIcon icon={faCalendarAlt} />
