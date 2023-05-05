@@ -26,7 +26,7 @@ export function BookingForm(props: { onFormSubmit: () => void }) {
 
     try {
       const response = await axios.post(
-        "http://autoquest-backend-production.up.railway.app/rentals",
+        "https://autoquest-backend-production.up.railway.app/rentals",
         formData
       );
       console.log(response.data);
