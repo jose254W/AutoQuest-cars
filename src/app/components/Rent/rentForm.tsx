@@ -27,7 +27,7 @@ export function RentingForm(props: { onFormSubmit: () => void, carType?:string }
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/rentals",
+        "http://autoquest-backend-production.up.railway.app/rentals",
         formData
       );
       console.log(response.data);

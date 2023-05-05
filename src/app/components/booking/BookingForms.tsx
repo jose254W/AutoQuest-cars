@@ -6,7 +6,8 @@ export function BookingForm(props: { onFormSubmit: () => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  
+  const [location, setLocation] = useState("");
+  const [carType ,setcarType] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -17,14 +18,15 @@ export function BookingForm(props: { onFormSubmit: () => void }) {
       name,
       email,
       phone,
-     
+      location,
+      carType,
       startDate,
       endDate,
     };
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/rentals",
+        "http://autoquest-backend-production.up.railway.app/rentals",
         formData
       );
       console.log(response.data);
@@ -70,6 +72,36 @@ export function BookingForm(props: { onFormSubmit: () => void }) {
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="location"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Location:
+          </label>
+          <input
+            id="location"
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="car-type"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Car-Type:
+          </label>
+          <input
+            id="car-type"
+            type="text"
+            value={carType}
+            onChange={(e) => setcarType(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>

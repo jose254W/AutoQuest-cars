@@ -143,9 +143,9 @@ export function NavItems(props: { topcars: string[] }) {
         <a href="#contact">Contact Us</a>
       </NavItem>
       <form onSubmit={handleSubmit}>
-              <SearchInput
+              <SearchInput className="placeholder:text-red-500 "
                 type="text"
-                placeholder="Search"
+                placeholder="Coming Soon!"text-red
                 value={searchQuery}
                 onChange={handleSearchInputChange}
               />
